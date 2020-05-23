@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Insert title here</title>
+</h:head>
+<style>
+td {
+	text-align: center;
+}
+</style>
+<h:body>
+
+	<h:form id="form" enctype="multipart/form-data">
+
+		<h:outputLabel value="Arquivo" for="arquivo" />
+		<h:inputFile id="arquivo" value="#{MBFiles.files}" required="true"
+			label="Arquivo" />
+
+       <h:commandButton value="Importar" actionListener="#{MBFiles.importarFile}" onclick="#{MBFiles.arquivo}"></h:commandButton>
+
+		<h1>Arquivos no sistema</h1>
+		<br />
+		<h:dataTable value="#{MBFiles.arquivos}" var="arquivo">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{arquivo.file_name}" />
+			</h:column>
+			<h:column>
+			<f:facet name="header">
+				<h:outputText value="Tipo do arquivo" />
+			</f:facet>
+			<h:outputText value="#{arquivo.file_type}" />
+			</h:column>
+			<h:column>
+		     <h:commandLink value="[Download]" actionListener="#{MBFiles.baixarArquivo()}"></h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Patrimonios</title>
+</h:head>
+<style>
+td {
+	text-align: center;
+}
+</style>
+<h:body>
+	<h:form>
+		<h1>Cadastro de Patrimonio</h1>
+		<br />
+		<h:panelGrid columns="2" id="pgforNome">
+			<h:outputLabel value="Nome :" for="nomePatrimonio" />
+			<h:inputText id="nomePatrimonio"
+				value="#{MBPatrimonio.patrimonio.nome}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2" id="pgforDescricao">
+			<h:outputLabel value="Descrição :" for="descricaoPatrimonio" />
+			<h:inputText id="descricaoPatrimonio"
+				value="#{MBPatrimonio.patrimonio.descricao}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2" id="pgforMarcaId">
+			<h:outputLabel value="Marca" for="marcaPatrimonio" />
+			<h:selectOneMenu id="marcaPatrimonio" value="#{MBPatrimonio.patrimonio.marca.id}" >
+			<f:selectItem itemValue="" itemLabel="Selecione uma marca"/>
+			<f:selectItems value="#{MBMarca.marcas}" var="marca" itemValue="#{marca.id}" itemLabel="#{marca.nome}">
+			
+			</f:selectItems>	
+			</h:selectOneMenu>
+		</h:panelGrid>		
+		
+		<h:panelGrid columns="2">
+			<h:commandButton value="Salvar" actionListener="#{MBPatrimonio.salvarPatrimonio}" onclick="#{MBPatrimonio.patrimonio}"></h:commandButton>
+			<h:commandButton value="Cancelar" actionListener="#{MBPatrimonio.limparPatrimonio}"></h:commandButton>
+		</h:panelGrid>
+
+
+		<h1>Lista de Patrimonios</h1>
+		<br />
+		
+		<h:panelGrid columns="4" id="pgforPatrinomioId">
+			<h:outputLabel value="Patrimonio" for="patrinomios" />
+			<h:selectOneMenu id="patrinomios" value="#{MBPatrimonio.patrimonio.id}">
+			<f:selectItem itemValue="" itemLabel="Selecione um patrinomio"/>
+			<f:selectItems value="#{MBPatrimonio.patrimonios}" var="patrinomio" itemValue="#{patrinomio.id}" itemLabel="#{patrinomio.nome}" >			
+			</f:selectItems>	
+			</h:selectOneMenu>
+		<h:commandButton value="Buscar" actionListener="#{MBPatrimonio.getPatrimonioById}"></h:commandButton>
+	    <h:commandButton value="Limpar" actionListener="#{MBPatrimonio.getPatrimoniosAll}"></h:commandButton>
+		</h:panelGrid>		
+		
+		
+		<h:dataTable value="#{MBPatrimonio.patrimonios}" var="patrimonio">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="MarcaId" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.marca.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Descrição" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.descricao} " />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nº do tombo " />
+				</f:facet>
+				<h:outputText value="#{patrimonio.num_tombo}" />
+			</h:column>
+			<h:column>
+				<h:commandLink value="[Editar]">
+				<f:setPropertyActionListener value="#{patrimonio}" target="#{MBPatrimonio.patrimonio}"></f:setPropertyActionListener>
+				</h:commandLink>
+				<h:commandLink value="[Excluir]" actionListener="#{MBPatrimonio.excluirPatrimonio(patrimonio)}">
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

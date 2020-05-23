@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Marcas</title>
+</h:head>
+<style>
+td {
+	text-align: center;
+}
+</style>
+<h:body>
+	<h:form>
+		<h1>Cadastro de Marcas</h1>
+		<br />
+		<h:panelGrid columns="2" id="pgforNome">
+			<h:outputLabel value="Nome :" for="nomeMarca" />
+			<h:inputText id="nomeMarca"
+				value="#{MBMarca.marca.nome}" />
+		</h:panelGrid>	
+		
+		<h:panelGrid columns="2">
+			<h:commandButton value="Salvar" actionListener="#{MBMarca.salvarMarca}" onclick="#{MBMarca.marca}"></h:commandButton>
+			<h:commandButton value="Cancelar" actionListener="#{MBMarca.limparMarca}"></h:commandButton>
+		</h:panelGrid>
+
+
+		<h1>Lista de Marcas</h1>
+		<br />
+		
+				<h:panelGrid columns="4" id="pgforMarcaId">
+			<h:outputLabel value="Marca" for="marcas" />
+			<h:selectOneMenu id="marcas" value="#{MBMarca.marca.id}">
+			<f:selectItem itemValue="" itemLabel="Selecione uma marca"/>
+			<f:selectItems value="#{MBMarca.marcas}" var="marca" itemValue="#{marca.id}" itemLabel="#{marca.nome}" >			
+			</f:selectItems>	
+			</h:selectOneMenu>
+		<h:commandButton value="Buscar" actionListener="#{MBMarca.getMarcaById}"></h:commandButton>
+	    <h:commandButton value="Limpar" actionListener="#{MBMarca.getMarcasAll}"></h:commandButton>
+		</h:panelGrid>		
+		
+		
+		
+		<h:dataTable value="#{MBMarca.marcas}" var="marca">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{marca.nome}" />
+			</h:column>
+			<h:column>
+				<h:commandLink value="[Editar]">
+				<f:setPropertyActionListener value="#{marca}" target="#{MBMarca.marca}"></f:setPropertyActionListener>
+				</h:commandLink>
+				<h:commandLink value="[Excluir]" actionListener="#{MBMarca.excluirMarca(marca)}">
+				</h:commandLink>
+				<h:commandLink value="[Patrimonios]" actionListener="#{MBMarca.buscarPatrimonio(marca.id)}">
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+		
+		<br/>
+					<h1>Lista de Patrimonio da marca</h1>
+		<h:dataTable value="#{MBMarca.patrimonioMarca}" var="patrimonio">
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="MarcaId" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.marca.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Descrição" />
+				</f:facet>
+				<h:outputText value="#{patrimonio.descricao} " />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nº do tombo " />
+				</f:facet>
+				<h:outputText value="#{patrimonio.num_tombo}" />
+			</h:column>		
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>
