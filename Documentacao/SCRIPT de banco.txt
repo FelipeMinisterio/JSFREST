@@ -20,3 +20,14 @@ CREATE TABLE 'patrimonio' (
   KEY 'fk_patrimonio_marca_idx' ('marcaId'),
   CONSTRAINT 'fk_patrimonio_marca' FOREIGN KEY ('marcaId') REFERENCES 'marca' ('id') ON DELETE NO ACTION ON UPDATE NO ACTION
 )
+
+
+-----------------------------------------------------------------
+
+CREATE TABLE 'files' (
+  'id' int(11) NOT NULL AUTO_INCREMENT,
+  'file_name' varchar(100) NOT NULL,
+  'file_type' varchar(100) NOT NULL,
+  'data' blob NOT NULL,
+  PRIMARY KEY ('id')
+)
