@@ -1,0 +1,22 @@
+CREATE TABLE 'marca' (
+  'id' int(11) NOT NULL AUTO_INCREMENT,
+  'nome' varchar(45) NOT NULL,
+  PRIMARY KEY ('id'),
+  UNIQUE KEY 'nome_UNIQUE' ('nome')
+)
+
+
+---------------------------------------------------------------
+
+
+
+CREATE TABLE 'patrimonio' (
+  'id' int(11) NOT NULL AUTO_INCREMENT,
+  'nome' varchar(45) NOT NULL,
+  'marcaId' int(11) NOT NULL,
+  'descricao' varchar(45) NOT NULL,
+  'num_tombo' int(11) DEFAULT NULL,
+  PRIMARY KEY ('id'),
+  KEY 'fk_patrimonio_marca_idx' ('marcaId'),
+  CONSTRAINT 'fk_patrimonio_marca' FOREIGN KEY ('marcaId') REFERENCES 'marca' ('id') ON DELETE NO ACTION ON UPDATE NO ACTION
+)
